@@ -1,0 +1,113 @@
+{
+    "annotationType": "image",
+    "showTags": true,
+    "selectedTool": "pan",
+    "fullImageSegmentationMode": false,
+    "autoSegmentationOptions": {
+        "type": "autoseg"
+    },
+    "mode": null,
+    "taskDescription": "",
+    "showMask": true,
+    "labelImages": false,
+    "regionClsList": [
+        "Benedict",
+        "Anish",
+        "Mathew",
+        "Santhosh"
+    ],
+    "regionTagList": [
+        "10C",
+        "10B",
+        "10A"
+    ],
+    "imageClsList": [],
+    "imageTagList": [],
+    "currentVideoTime": 0,
+    "enabledTools": [
+        "select",
+        "create-point",
+        "create-box"
+    ],
+    "selectedImage": 0,
+    "images": [
+        {
+            "src": "https://res.cloudinary.com/course4u/image/upload/v1680404739/ghss/group-photo_m6pntk.jpg",
+            "name": "Group Photo",
+            "regions": [
+                {
+                    "type": "box",
+                    "x": 0.20833332722003645,
+                    "y": 0.20262018751398636,
+                    "w": 0.030448717948717924,
+                    "h": 0.12738013493323552,
+                    "highlighted": false,
+                    "editingLabels": false,
+                    "color": "#f44336",
+                    "cls": "Benedict",
+                    "id": "009000480300168645",
+                    "tags": [
+                        "10C"
+                    ]
+                },
+                {
+                    "type": "box",
+                    "x": 0.2580128143995236,
+                    "y": 0.23298022542712485,
+                    "w": 0.027243589743589758,
+                    "h": 0.07854007854007852,
+                    "highlighted": false,
+                    "editingLabels": false,
+                    "color": "#2196f3",
+                    "cls": "Anish",
+                    "id": "6686307799047855",
+                    "tags": [
+                        "10B"
+                    ]
+                },
+                {
+                    "type": "box",
+                    "x": 0.46474358363029283,
+                    "y": 0.1082401006870001,
+                    "w": 0.03846153846153849,
+                    "h": 0.11550011550011552,
+                    "highlighted": false,
+                    "editingLabels": false,
+                    "color": "#4caf50",
+                    "cls": "Mathew",
+                    "id": "5963047210586554",
+                    "tags": [
+                        "10A"
+                    ]
+                },
+                {
+                    "type": "box",
+                    "x": 0.24209050538000393,
+                    "y": 0.22572652946628186,
+                    "w": 0.014350948905109517,
+                    "h": 0.08372926283948184,
+                    "highlighted": false,
+                    "editingLabels": false,
+                    "color": "#4caf50",
+                    "cls": "Mathew",
+                    "id": "6886601235777507",
+                    "tags": [
+                        "10A"
+                    ]
+                }
+            ],
+            "pixelSize": {
+                "w": 1600,
+                "h": 555
+            }
+        }
+    ],
+    "lastAction": {
+        "type": "SELECT_TOOL",
+        "selectedTool": "pan"
+    },
+    "fullScreen": false,
+    "lastMouseMoveCall": 1682528173933,
+    "mouseDownAt": null,
+    "selectedCls": "Mathew"
+}
