@@ -1,8 +1,5 @@
 import React from "react";
 import ReactImageAnnotate from "react-image-annotate";
-import Grid from "@material-ui/core/Grid";
-import { Col, Row } from "reactstrap";
-
 
 function App(props) {
   const onSave = MainLayoutState => {
@@ -18,8 +15,7 @@ function App(props) {
             labelImages
             regionClsList={["Benedict", "Anish", "Mathew", "Santhosh"]}
             regionTagList={["10C", "10B", "10A"]}
-            enabledTools={["select",  "create-box"]}
-            hideSettings={true}
+            enabledTools={["select",  "create-box"]}            
             hideNext={true}
             hidePrev={true}
             showTags={true}
