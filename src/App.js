@@ -1,5 +1,6 @@
 import React from "react";
 import ReactImageAnnotate from "react-image-annotate";
+import './App.css';
 
 function App(props) {
   const onSave = MainLayoutState => {
