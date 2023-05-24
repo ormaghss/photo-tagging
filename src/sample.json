@@ -1,0 +1,99 @@
+{
+    "annotationType": "image",
+    "showTags": true,
+    "selectedTool": "create-box",
+    "fullImageSegmentationMode": false,
+    "autoSegmentationOptions": {
+        "type": "autoseg"
+    },
+    "mode": null,
+    "taskDescription": "",
+    "showMask": true,
+    "labelImages": false,
+    "regionClsList": [
+        "Benedict",
+        "Anish",
+        "Mathew",
+        "Santhosh"
+    ],
+    "regionTagList": [
+        "10C",
+        "10B",
+        "10A"
+    ],
+    "imageClsList": [],
+    "imageTagList": [],
+    "currentVideoTime": 0,
+    "enabledTools": [
+        "select",
+        "create-point",
+        "create-box",
+        "create-polygon",
+        "create-expanding-line",
+        "show-mask"
+    ],
+    "selectedImage": 0,
+    "images": [
+        {
+            "src": "https://res.cloudinary.com/course4u/image/upload/v1680404739/ghss/group-photo_m6pntk.jpg",
+            "name": "Group Photo",
+            "regions": [
+                {
+                    "id": 8069525039067572,
+                    "type": "box",
+                    "x": 0.882589285565218,
+                    "y": 0.11861966874654396,
+                    "w": 0.024536998956521727,
+                    "h": 0.07801313232902467,
+                    "highlighted": false,
+                    "editingLabels": false,
+                    "color": "#f44336",
+                    "cls": "Benedict",
+                    "tags": [
+                        "10C"
+                    ]
+                },
+                {
+                    "type": "box",
+                    "x": 0.47168405365126675,
+                    "y": 0.1313981587218972,
+                    "w": 0.024590163934426257,
+                    "h": 0.07948335817188276,
+                    "highlighted": true,
+                    "editingLabels": false,
+                    "color": "#4caf50",
+                    "cls": "Mathew",
+                    "id": "27927800979974493",
+                    "tags": [
+                        "10B"
+                    ]
+                }
+            ],
+            "pixelSize": {
+                "w": 1600,
+                "h": 555
+            }
+        }
+    ],
+    "lastAction": {
+        "type": "CLOSE_REGION_EDITOR",
+        "region": {
+            "type": "box",
+            "x": 0.47168405365126675,
+            "y": 0.1313981587218972,
+            "w": 0.024590163934426257,
+            "h": 0.07948335817188276,
+            "highlighted": true,
+            "editingLabels": true,
+            "color": "#4caf50",
+            "cls": "Mathew",
+            "id": "27927800979974493",
+            "tags": [
+                "10B"
+            ]
+        }
+    },
+    "fullScreen": false,
+    "lastMouseMoveCall": 1684186492012,
+    "mouseDownAt": null
+}
