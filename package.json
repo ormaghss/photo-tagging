@@ -4,7 +4,7 @@
   "description": "",
   "keywords": [],
   "main": "src/index.js",
-  "proxy": "https://orma.onrender.com/",
+  "proxy": "https://photo-tagging-java.onrender.com",
   "dependencies": {
     "axios": "^1.4.0",
     "namor": "^3.0.1",
