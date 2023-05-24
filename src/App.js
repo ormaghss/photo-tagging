@@ -215,7 +215,7 @@ const App = () => {
       const headers = {
         'Content-Type': 'application/json'
       }
-      let url = "/addTagging";
+      let url = "https://photo-tagging-java.onrender.com/addTagging";
       let data = {
         "taggedUsers": {}
       }
