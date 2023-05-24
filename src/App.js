@@ -119,7 +119,7 @@ const App = () => {
     setBusy(true);
     try {
 
-      await axios.delete("/deletUsers/" + value.userId);
+      await axios.delete("https://photo-tagging-java.onrender.com/deletUsers/" + value.userId);
     } catch (error) {
       throw error;
     } finally {
@@ -132,7 +132,7 @@ const App = () => {
     setBusy(true);
     try {
 
-      const response = await axios.get("/taggedPhoto");
+      const response = await axios.get("https://photo-tagging-java.onrender.com/taggedPhoto");
       if (response.status === 200) {
         setTagging(response.data);
 
@@ -148,7 +148,7 @@ const App = () => {
     setBusy(true);
     try {
 
-      const response = await axios.get("/AllUsers");
+      const response = await axios.get("https://photo-tagging-java.onrender.com/AllUsers");
       if (response.status === 200) {
         setUserData(response.data);
         var sortedUsers = response.data.map((item, index, arr) => {
@@ -187,7 +187,7 @@ const App = () => {
     setIsShowEditForm(false)
     setIsShowNewForm(false)
     try {
-      await axios.post("/addSingleUser", newData);
+      await axios.post("https://photo-tagging-java.onrender.com/addSingleUser", newData);
     } catch (error) {
       throw error;
     } finally {
