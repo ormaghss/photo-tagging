@@ -123,11 +123,10 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
-
+      setBusy(false);
     }
     fetchData();
     fetchUserData();
-    setBusy(false);
   };
   const fetchData = async function () {
     setBusy(true);
@@ -163,10 +162,9 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
-
+      setBusy(false);
     }
     fetchData();
-    setBusy(false);
   };
 
   const putUserData = async function (editData) {
@@ -178,12 +176,10 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
-
+      setBusy(false);
     }
-
     fetchData();
     fetchUserData();
-    setBusy(false);
   };
 
   const postUserData = async function (newData) {
@@ -195,11 +191,10 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
-
+      setBusy(false);
     }
     fetchData();
     fetchUserData();
-    setBusy(false);
   };
 
   const onSave = async (MainLayoutState) => {
