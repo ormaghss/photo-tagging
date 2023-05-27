@@ -123,10 +123,11 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
+      fetchData();
+      fetchUserData();
       setBusy(false);
     }
-    fetchData();
-    fetchUserData();
+   
   };
   const fetchData = async function () {
     setBusy(true);
@@ -162,9 +163,10 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
+      fetchData();
       setBusy(false);
     }
-    fetchData();
+    
   };
 
   const putUserData = async function (editData) {
@@ -172,14 +174,15 @@ const App = () => {
     setIsShowEditForm(false)
     setIsShowNewForm(false)
     try {
-      await axios.put("/users/" + editData.userId, editData);
+      await axios.put("https://photo-tagging-java.onrender.com/users/" + editData.userId, editData);
     } catch (error) {
       throw error;
     } finally {
+      fetchData();
+      fetchUserData();
       setBusy(false);
     }
-    fetchData();
-    fetchUserData();
+   
   };
 
   const postUserData = async function (newData) {
@@ -191,10 +194,11 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
+      fetchData();
+      fetchUserData();
       setBusy(false);
     }
-    fetchData();
-    fetchUserData();
+   
   };
 
   const onSave = async (MainLayoutState) => {
