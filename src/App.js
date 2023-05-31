@@ -123,7 +123,7 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
-      setBusy(false);
+      // setBusy(false);
     }
     fetchData();
     fetchUserData();
@@ -162,7 +162,7 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
-      setBusy(false);
+      // setBusy(false);
     }
     fetchData();
   };
@@ -176,7 +176,7 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
-      setBusy(false);
+      // setBusy(false);
     }
     fetchData();
     fetchUserData();
@@ -191,7 +191,7 @@ const App = () => {
     } catch (error) {
       throw error;
     } finally {
-      setBusy(false);
+      // setBusy(false);
     }
     fetchData();
     fetchUserData();
@@ -231,7 +231,7 @@ const App = () => {
         })
       fetchData();
       fetchUserData();
-      
+      // setBusy(false);
     }
   }
 
@@ -296,7 +296,7 @@ const App = () => {
 
             images={[
               {
-                src: "https://res.cloudinary.com/course4u/image/upload/v1680404739/ghss/group-photo_m6pntk.jpg",
+                src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
                 name: "Group Photo",
                 regions: JSON.parse(JSON.stringify(tagging))
               }
