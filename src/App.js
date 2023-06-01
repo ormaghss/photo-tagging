@@ -44,8 +44,7 @@ const App = () => {
       name: { type: 'string', title: 'Name (Make it a unique name by adding initials or nickname)' },
       familyName: { type: 'string', title: 'Family Name', default: "" },
       division: { type: 'string', title: 'Class & division(For teachers choose "Teacher")', enum: ["10-A", "10-B", "10-C", "Teacher"] },
-      birthday: { type: 'string', title: 'Birthday (--month--date - eg. --12--25 (for Dec. 25)', default: "" },
-      maritalStatus: { type: 'string', title: 'Marital Status(Married / Single / Religious)', default: "", enum: ["", "Married", "Religious", "Single"] },
+      birthday: { type: 'string', title: 'Birthday (--month--date - eg. --12--25 (for Dec. 25)', default: "" },     
       whatsappNumber: { type: 'string', title: 'Whatsapp Number', default: "" },
       phoneNumber: { type: 'string', title: 'Phone Number', default: "" },
       tagged: { type: 'string', title: 'Tagged', default: false },
@@ -56,14 +55,13 @@ const App = () => {
     classNames: "col-md-12",
 
     "ui:order": [
-      'userId', 'name', 'familyName', 'division', 'birthday', 'maritalStatus', 'tagged', 'whatsappNumber', 'phoneNumber'
+      'userId', 'name', 'familyName', 'division', 'birthday', 'tagged', 'whatsappNumber', 'phoneNumber'
     ],
     userId: { classNames: "col-md-12", "ui:widget": "hidden" },
     name: { classNames: "col-md-12" },
     familyName: { classNames: "col-md-12" },
     division: { classNames: "col-md-12" },
-    birthday: { classNames: "col-md-12" },
-    maritalStatus: { classNames: "col-md-12" },
+    birthday: { classNames: "col-md-12" },   
     whatsappNumber: { classNames: "col-md-12" },
     phoneNumber: { classNames: "col-md-12" },
     tagged: { classNames: "col-md-1", "ui:widget": "hidden" },
