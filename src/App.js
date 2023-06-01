@@ -105,6 +105,9 @@ const App = () => {
     setEditData(value);
     console.log(value)
   };
+  const hideTagging = () => {
+    setTagging([]);
+  };
   const handleNewClick = () => {
     setIsShowNewForm((isShowNewForm) => !isShowNewForm);
 
@@ -243,7 +246,7 @@ const App = () => {
   if (isBusy) {
     return (
 
-      <div> Loading...
+      <div> Loading Tags! Please Wait...
         <div className="sweet-loading">
 
           <BeatLoader
@@ -254,6 +257,20 @@ const App = () => {
             data-testid="loader"
           />
         </div>
+        <ReactImageAnnotate
+            labelImages
+            regionClsList={userNames}
+            regionTagList={["10A", "10B", "10C", "Teacher"]}
+
+            images={[
+              {
+                src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
+                name: "Group Photo",
+                // regions: JSON.parse(JSON.stringify(tagging))
+              }
+            ]
+            }           
+          />
       </div>
     )
   }
@@ -272,7 +289,10 @@ const App = () => {
     return (
 
       <div>
-
+<div>
+<button class="btn btn-success" onClick= { hideTagging }>Hide Tagging</button>
+  <button> Hide Tagging</button>
+</div>
         {validating && (
 
           <PropagateLoader
