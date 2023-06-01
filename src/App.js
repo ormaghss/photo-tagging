@@ -107,8 +107,7 @@ const App = () => {
     console.log(value)
   };
   const hideTagging = () => {
-    setHideTaggingData(true);
-    setTagging([]);
+    setHideTaggingData(!hideTaggingData);
   };
   const handleNewClick = () => {
     setIsShowNewForm((isShowNewForm) => !isShowNewForm);
@@ -293,7 +292,7 @@ const App = () => {
       <div>
 <div>
   <br></br>
-<button class="btn btn-success" onClick= { hideTagging }>Hide Tagging</button>
+<button class="btn btn-success" onClick= { hideTagging }>Hide / Unhide Tagging</button>
   
 </div>
         {validating && (
@@ -322,7 +321,7 @@ const App = () => {
              images={[
                {
                  src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
-                 name: "Group Photo",                
+                 name: "Group Photo, SSLC Batch -1991",                
                  regions: []
                }
              ]
@@ -342,7 +341,7 @@ const App = () => {
    images={[
      {
        src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
-       name: "Group Photo",                
+       name: "Group Photo, SSLC Batch -1991",                  
        regions: JSON.parse(JSON.stringify(tagging))
      }
    ]
