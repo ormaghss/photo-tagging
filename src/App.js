@@ -24,6 +24,7 @@ const App = () => {
   const [isShowNewForm, setIsShowNewForm] = useState(false);
   const [editData, setEditData] = useState({});
   const [userNamesLength, setUserNamesLength] = useState(0)
+  const [hideTaggingData, setHideTaggingData] = useState(false);
 
   const handleSubmit = (formData) => {
     console.log(formData.formData)
@@ -106,6 +107,7 @@ const App = () => {
     console.log(value)
   };
   const hideTagging = () => {
+    setHideTaggingData(true);
     setTagging([]);
   };
   const handleNewClick = () => {
@@ -266,7 +268,7 @@ const App = () => {
               {
                 src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
                 name: "Group Photo",
-                // regions: JSON.parse(JSON.stringify(tagging))
+                regions: []
               }
             ]
             }           
@@ -290,8 +292,9 @@ const App = () => {
 
       <div>
 <div>
+  <br></br>
 <button class="btn btn-success" onClick= { hideTagging }>Hide Tagging</button>
-  <button> Hide Tagging</button>
+  
 </div>
         {validating && (
 
@@ -309,22 +312,44 @@ const App = () => {
               <br></br>
               <h3>  {duplicateErorr}</h3> </div>
           )}
-          <ReactImageAnnotate
-            labelImages
-            regionClsList={userNames}
-            regionTagList={["10A", "10B", "10C", "Teacher"]}
-
-            images={[
-              {
-                src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
-                name: "Group Photo",
-                regions: JSON.parse(JSON.stringify(tagging))
-              }
-            ]
-            }
-            onExit={onSave}
-          />
-
+                     {hideTaggingData && (
+           
+           <ReactImageAnnotate
+             labelImages
+             regionClsList={userNames}
+             regionTagList={["10A", "10B", "10C", "Teacher"]}
+ 
+             images={[
+               {
+                 src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
+                 name: "Group Photo",                
+                 regions: []
+               }
+             ]
+             }
+             onExit={onSave}
+           />
+           )}
+ 
+ {!hideTaggingData && (
+ 
+            
+ <ReactImageAnnotate
+   labelImages
+   regionClsList={userNames}
+   regionTagList={["10A", "10B", "10C", "Teacher"]}
+ 
+   images={[
+     {
+       src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
+       name: "Group Photo",                
+       regions: JSON.parse(JSON.stringify(tagging))
+     }
+   ]
+   }
+   onExit={onSave}
+ />
+ )}
           <div style={{ backgroundColor: "lightblue" }} className="App">
             <h4>All Students and Teachers</h4>
           </div>
