@@ -263,7 +263,7 @@ const App = () => {
 
             images={[
               {
-                src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
+                src: "https://res.cloudinary.com/course4u/image/upload/v1685683132/ghss/photoshop-edited_4_xnallv.jpg",
                 name: "Group Photo",
                 regions: []
               }
