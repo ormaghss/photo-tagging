@@ -25,6 +25,7 @@ const App = () => {
   const [editData, setEditData] = useState({});
   const [userNamesLength, setUserNamesLength] = useState(0)
   const [hideTaggingData, setHideTaggingData] = useState(false);
+  const [tagFilteredUsers, setTagFilteredUsers] = useState([]);
 
   const handleSubmit = (formData) => {
     console.log(formData.formData)
@@ -160,6 +161,12 @@ const App = () => {
         });
         setUserNames(sortedUsers);
         setUserNamesLength(sortedUsers.length)
+        var filteredUsers = response.data.map((item, index, arr) => {
+          if (!item.tagged) {
+            return item.name
+          }
+        });
+        setTagFilteredUsers(filteredUsers)
       }
     } catch (error) {
       throw error;
@@ -406,6 +413,54 @@ const App = () => {
             </table>
 
             <div>
+              <div>
+                
+             
+
+              <div style={{ backgroundColor: "lightblue" }} className="App">
+            <h4>Tag  ചെയ്യുവ്വാൻ ബാക്കിയുള്ളവർ</h4>
+          </div>
+          <p></p>
+          <div style={{ backgroundColor: "lightyellow", padding: 2 }} className="App">
+            <table>
+
+              <tr>
+                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Sr. No.</th>
+                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Name</th>
+                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>House Name</th>
+                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Division</th>
+                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}> Tagged</th>
+
+              </tr>
+              {tagFilteredUsers.sort(function (a, b) { return a.userId - b.userId }).map((val, key) => {
+                return (
+                  <tr key={key} style={{ backgroundColor: "lightyellow" }}>
+
+                    <td style={{ border: "2px solid black" }}>{key + 1}</td>
+                    <td style={{ border: "2px solid black" }}>{val.name}</td>
+                    <td style={{ border: "2px solid black" }}>{val.familyName}</td>
+                    <td style={{ border: "2px solid black" }}>{val.division}</td>
+                    <td style={{ border: "2px solid black" }}><input
+                      type="checkbox"
+                      checked={val.tagged}
+                    /></td>
+                    <td style={{ border: "2px solid black" }}>
+
+                      {val.whatsappNumber}
+                    </td>
+                    <td style={{ border: "2px solid black" }}>
+
+                      {val.phoneNumber}
+                    </td>
+                  
+                  </tr>
+
+                )
+              })}
+            </table>
+
+</div>
+              </div>
               {isShowEditForm && (
                 <EditForm
 
