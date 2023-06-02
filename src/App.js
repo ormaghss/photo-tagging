@@ -409,7 +409,13 @@ const App = () => {
                 )
               })}
             </table>
+            <div>
+              {isShowEditForm && (
+                <EditForm
 
+                />
+              )}
+            </div>
           </div>
           <div>
             <button class="btn btn-success" onClick={() => { handleNewClick() }} > Add New Record</button>
