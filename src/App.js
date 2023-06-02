@@ -318,7 +318,7 @@ const App = () => {
  
              images={[
                {
-                src: "https://res.cloudinary.com/course4u/image/upload/v1685655639/ghss/photoshop-edited_3_iaht0h.jpg",
+                 src: "https://res.cloudinary.com/course4u/image/upload/v1685683132/ghss/photoshop-edited_4_xnallv.jpg",
                  name: "Group Photo, SSLC Batch -1991",                
                  regions: []
                }
@@ -338,7 +338,7 @@ const App = () => {
  
    images={[
      {
-       src: "https://res.cloudinary.com/course4u/image/upload/v1685655639/ghss/photoshop-edited_3_iaht0h.jpg",
+       src: "https://res.cloudinary.com/course4u/image/upload/v1685683132/ghss/photoshop-edited_4_xnallv.jpg",
        name: "Group Photo, SSLC Batch -1991",                  
        regions: JSON.parse(JSON.stringify(tagging))
      }
