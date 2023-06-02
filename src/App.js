@@ -9,6 +9,13 @@ import phone from "./images/icons8-phone-cute-outline-32.png";
 import "./styles.css";
 import Form from "react-jsonschema-form";
 
+import Dialog from "@material-ui/core/Dialog";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import Button from "@material-ui/core/Button";
+
 const App = () => {
 
 
@@ -19,15 +26,25 @@ const App = () => {
   const [userData, setUserData] = useState([]);
   const [userNames, setUserNames] = useState([]);
   const [validating, setValidation] = useState(false);
-  const [duplicateErorr, setDuplicateErorr] = useState("");
-  const [isShowEditForm, setIsShowEditForm] = useState(false);
+  const [duplicateErorr, setDuplicateErorr] = useState("");  
   const [isShowNewForm, setIsShowNewForm] = useState(false);
   const [editData, setEditData] = useState({});
   const [userNamesLength, setUserNamesLength] = useState(0)
   const [hideTaggingData, setHideTaggingData] = useState(false);
   const [tagFilteredUsers, setTagFilteredUsers] = useState([]);
 
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleToClose = (e) => {
+    e.preventDefault();
+      setOpen(false);
+  };
+
+
+
   const handleSubmit = (formData) => {
+    setOpen(false);
     console.log(formData.formData)
     putUserData(formData.formData);
   }
@@ -100,8 +117,8 @@ const App = () => {
     );
   };
 
-  const handleEditClick = (value) => {
-    setIsShowEditForm((isShowEditForm) => !isShowEditForm);
+  const handleEditClick = (value) => { 
+    setOpen(true);    
     setEditData(value);
     console.log(value)
   };
@@ -175,8 +192,7 @@ const App = () => {
   };
 
   const putUserData = async function (editData) {
-    setBusy(true);
-    setIsShowEditForm(false)
+    setBusy(true);   
     setIsShowNewForm(false)
     try {
       await axios.put("https://photo-tagging-java.onrender.com/users/" + editData.userId, editData);
@@ -190,8 +206,7 @@ const App = () => {
   };
 
   const postUserData = async function (newData) {
-    setBusy(true);
-    setIsShowEditForm(false)
+    setBusy(true);    
     setIsShowNewForm(false)
     try {
       await axios.post("https://photo-tagging-java.onrender.com/addSingleUser", newData);
@@ -409,13 +424,21 @@ const App = () => {
                 )
               })}
             </table>
-            <div>
-              {isShowEditForm && (
-                <EditForm
-
-                />
-              )}
-            </div>
+            <Dialog open={open} onClose={handleToClose}>
+                <DialogTitle>{" Please fill at least a name and the division!"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                       
+                    </DialogContentText>
+                    <EditForm />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleToClose}
+                        color="primary" autoFocus>
+                        Cancel Editing
+                    </Button>
+                </DialogActions>
+            </Dialog>
           </div>
           <div>
             <button class="btn btn-success" onClick={() => { handleNewClick() }} > Add New Record</button>
@@ -478,6 +501,7 @@ const App = () => {
      
      </div>
      </div>
+     <br></br>
       </div>
 
 

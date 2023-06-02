@@ -6,9 +6,10 @@
   "main": "src/index.js",
   "proxy": "https://photo-tagging-java.onrender.com",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "axios": "^1.4.0",
     "namor": "^3.0.1",
-    "react": "16.13.1",    
+    "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-image-annotate": "1.7.1",
     "react-jsonschema-form": "^1.8.1",
