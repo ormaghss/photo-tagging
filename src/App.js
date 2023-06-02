@@ -318,7 +318,7 @@ const App = () => {
  
              images={[
                {
-                 src: "https://res.cloudinary.com/course4u/image/upload/v1685558548/ghss/group-photo-gigapixel-Edited_1_qg2qik.jpg",
+                src: "https://res.cloudinary.com/course4u/image/upload/v1685655639/ghss/photoshop-edited_3_iaht0h.jpg",
                  name: "Group Photo, SSLC Batch -1991",                
                  regions: []
                }
