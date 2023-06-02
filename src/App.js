@@ -263,7 +263,7 @@ const App = () => {
 
             images={[
               {
-                src: "https://res.cloudinary.com/course4u/image/upload/v1685684866/ghss/photoshop-edited_5_dcdydy.jpg",
+                src: "https://res.cloudinary.com/course4u/image/upload/v1685687500/ghss/photoshop-edited_6_hfbjai.jpg",
                 name: "Group Photo-SSLC- Batch-1991",
                 regions: []
               }
@@ -318,7 +318,7 @@ const App = () => {
  
              images={[
                {
-                src: "https://res.cloudinary.com/course4u/image/upload/v1685684866/ghss/photoshop-edited_5_dcdydy.jpg",
+                src: "https://res.cloudinary.com/course4u/image/upload/v1685687500/ghss/photoshop-edited_6_hfbjai.jpg",
                 name: "Group Photo-SSLC- Batch-1991",             
                  regions: []
                }
@@ -338,7 +338,7 @@ const App = () => {
  
    images={[
      {
-      src: "https://res.cloudinary.com/course4u/image/upload/v1685684866/ghss/photoshop-edited_5_dcdydy.jpg",
+      src: "https://res.cloudinary.com/course4u/image/upload/v1685687500/ghss/photoshop-edited_6_hfbjai.jpg",
       name: "Group Photo-SSLC- Batch-1991",                 
        regions: JSON.parse(JSON.stringify(tagging))
      }
