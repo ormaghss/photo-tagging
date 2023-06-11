@@ -70,7 +70,7 @@ const Index = (props) => {
     const [currentTag2, setCurrentTag2] = useState('');
     //   const [sampleNames1] = useState(['John', 'Jane', 'Mike', 'Sarah']); // Sample names for first dropdown list
     const [sampleNames2] = useState(["10A", "10B", "10C", "Teacher"]); // Sample names for second dropdown list
-    const [zoomLevel, setZoomLevel] = useState(1);
+    const [zoomLevel, setZoomLevel] = useState(5);
     const [hoveredTag, setHoveredTag] = useState(null);
     const [isBusy, setBusy] = useState(true);
     const [error, setError] = useState(false);
