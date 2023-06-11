@@ -131,7 +131,7 @@ const Index = (props) => {
             console.error("Failed to fetch user data:", error);
             // Handle the error gracefully (e.g., show an error message)
         } finally {
-            setBusy(false);
+            // setBusy(false);
         }
         fetchData();
     };
@@ -244,7 +244,7 @@ const Index = (props) => {
         } catch (error) {
             throw error;
         } finally {
-            setBusy(false);
+           setBusy(false);
         }
     };
 
@@ -273,7 +273,7 @@ const Index = (props) => {
             const headers = {
                 'Content-Type': 'application/json'
             }
-            let url = "/addTagging";
+            let url = "https://photo-tagging-java.onrender.com/addTagging";
             let data = {
                 "taggedUsers": {}
             }
@@ -288,7 +288,7 @@ const Index = (props) => {
                     setErrorData(JSON.stringify(err.message))
                     console.log("AXIOS ERROR: ", err);
                 })
-            fetchData();
+            // fetchData();
             fetchUserData();
             // setBusy(false);
         }
@@ -356,13 +356,15 @@ const Index = (props) => {
                 )}
               
 
-                {isBusy && (<BeatLoader
+                {isBusy && (                                
+                <BeatLoader
                     color={"green"}
                     loading={true}
                     size={30}
                     aria-label="Loading Spinner"
                     data-testid="loader"
-                />)}
+                />                
+                )}
                 <button class="btn btn-success" onClick={hideTagging}>Hide / Unhide Tagging</button>
                 {hideTaggingData && (<button class="btn btn-warning">Tags are Hidden!</button>)}
                 <Row>
