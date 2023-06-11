@@ -199,31 +199,31 @@ const UserData = () => {
       setBusy(false);
     }
   };
-// Create an Axios instance with the base URL
-const api = axios.create({
-  baseURL: 'http://localhost:3000', // Replace with your base URL
-});
+  // Create an Axios instance with the base URL
+  const api = axios.create({
+    baseURL: 'http://localhost:3000', // Replace with your base URL
+  });
 
-const fetchUserData = async () => {
-  setBusy(true);
-  try {
-    const response = await api.get('https://photo-tagging-java.onrender.com/AllUsers'); // Use the Axios instance instead of axios directly
-    if (response.status === 200) {
-      setUserData(response.data);
-      const sortedUsers = response.data
-        .filter(item => !item.tagged)
-        .map(item => item.name);
-      setUserNames(sortedUsers);
-      setUserNamesLength(sortedUsers.length);
-      const filteredUsers = response.data.filter(user => !user.tagged);
-      setTagFilteredUsers(filteredUsers);
+  const fetchUserData = async () => {
+    setBusy(true);
+    try {
+      const response = await api.get('https://photo-tagging-java.onrender.com/AllUsers'); // Use the Axios instance instead of axios directly
+      if (response.status === 200) {
+        setUserData(response.data);
+        const sortedUsers = response.data
+          .filter(item => !item.tagged)
+          .map(item => item.name);
+        setUserNames(sortedUsers);
+        setUserNamesLength(sortedUsers.length);
+        const filteredUsers = response.data.filter(user => !user.tagged);
+        setTagFilteredUsers(filteredUsers);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      // Handle the error gracefully (e.g., show an error message)
+    } finally {
+      setBusy(false);
     }
-  } catch (error) {
-    console.error("Failed to fetch user data:", error);
-    // Handle the error gracefully (e.g., show an error message)
-  } finally {
-    setBusy(false);
-  }
 
     fetchData();
   };
@@ -303,11 +303,11 @@ const fetchUserData = async () => {
     return (
 
 
-      <div> 
+      <div>
         <div className="sweet-loading">
-          <Header           
+          <Header
           />
-         Loading Data! Please Wait... 
+          Loading Data! Please Wait...
           <BeatLoader
             color={"green"}
             loading={true}
@@ -336,172 +336,172 @@ const fetchUserData = async () => {
         <Container className="mt--8" fluid>
           {/* Table */}
           <Row>
-          <div className="col">
-          <div>
-        <br></br>
+            <div className="col">
+              <div>
+                <br></br>
 
-        <div>  
+                <div>
 
-          <div style={{ backgroundColor: "lightblue" }} className="App">
-            <h4>All Students and Teachers</h4>
-          </div>
-          <p></p>
-          <div style={{ backgroundColor: "lightyellow", padding: 2 }} className="App">
-            <table>
+                  <div style={{ backgroundColor: "lightblue" }} className="App">
+                    <h4>All Students and Teachers</h4>
+                  </div>
+                  <p></p>
+                  <div style={{ backgroundColor: "lightyellow", padding: 2, overflowX: 'auto' }} className="App">
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
 
-              <tr>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Sr. No.</th>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Name</th>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>House Name</th>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Division</th>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}> Tagged</th>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>  <img src={whatsApp} alt={"Whatsapp"} />Whatsapp </th>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}> <img src={phone} alt={"Phone"} /> phone </th>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>{" "}</th>
-                <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>{" "} </th>
-              </tr>
-              {userData.sort(function (a, b) { return a.userId - b.userId }).map((val, key) => {
-                return (
-                  <tr key={key} style={{ backgroundColor: "lightyellow" }}>
+                      <tr>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Sr. No.</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Name</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>House Name</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Division</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}> Tagged</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>  <img src={whatsApp} alt={"Whatsapp"} />Whatsapp </th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}> <img src={phone} alt={"Phone"} /> phone </th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>{" "}</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>{" "} </th>
+                      </tr>
+                      {userData.sort(function (a, b) { return a.userId - b.userId }).map((val, key) => {
+                        return (
+                          <tr key={key} style={{ backgroundColor: "lightyellow" }}>
 
-                    <td style={{ border: "2px solid black" }}>{key + 1}</td>
-                    <td style={{ border: "2px solid black" }}>{val.name}</td>
-                    <td style={{ border: "2px solid black" }}>{val.familyName}</td>
-                    <td style={{ border: "2px solid black" }}>{val.division}</td>
-                    <td style={{ border: "2px solid black" }}><input
-                      type="checkbox"
-                      checked={val.tagged}
-                    /></td>
-                    <td style={{ border: "2px solid black" }}>
+                            <td style={{ border: "2px solid black" }}>{key + 1}</td>
+                            <td style={{ border: "2px solid black" }}>{val.name}</td>
+                            <td style={{ border: "2px solid black" }}>{val.familyName}</td>
+                            <td style={{ border: "2px solid black" }}>{val.division}</td>
+                            <td style={{ border: "2px solid black" }}><input
+                              type="checkbox"
+                              checked={val.tagged}
+                            /></td>
+                            <td style={{ border: "2px solid black" }}>
 
-                      {val.whatsappNumber}
-                    </td>
-                    <td style={{ border: "2px solid black" }}>
+                              {val.whatsappNumber}
+                            </td>
+                            <td style={{ border: "2px solid black" }}>
 
-                      {val.phoneNumber}
-                    </td>
-                    <td style={{ border: "2px solid black" }} s>
+                              {val.phoneNumber}
+                            </td>
+                            <td style={{ border: "2px solid black" }} s>
 
-                      <button class="btn btn-primary" onClick={() => { handleEditClick(val) }} > Edit</button>
-                     
-                      </td>
-                    <br>
-                    </br>
-                    <td style={{ border: "2px solid black" }}>
-                      <button class="btn btn-danger" onClick={(e) => {
-                        e.preventDefault();
-                        if (
-                          window.confirm(" ഈ റെക്കോർഡ് പൂര്ണമായിട്ടും ഡിലീറ്റ് ചെയ്യണോ?")
-                        ) {
-                          handleDeleteClick(val)
-                        }
-                      }}  > delete</button></td>
-           
-                  </tr>
+                              <button class="btn btn-primary" onClick={() => { handleEditClick(val) }} > Edit</button>
 
-                )
-              })}
-            </table>
-          
-            <Dialog open={open} onClose={handleToClose}>
-                <DialogTitle>{" Please fill at least a name and the division!"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                       
-                    </DialogContentText>
-                    <EditForm />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleToClose}
-                        color="primary" autoFocus>
-                        Cancel Editing
-                    </Button>
-                </DialogActions>
-            </Dialog>
-            {/* <div>
+                            </td>
+                            <br>
+                            </br>
+                            <td style={{ border: "2px solid black" }}>
+                              <button class="btn btn-danger" onClick={(e) => {
+                                e.preventDefault();
+                                if (
+                                  window.confirm(" ഈ റെക്കോർഡ് പൂര്ണമായിട്ടും ഡിലീറ്റ് ചെയ്യണോ?")
+                                ) {
+                                  handleDeleteClick(val)
+                                }
+                              }}  > delete</button></td>
+
+                          </tr>
+
+                        )
+                      })}
+                    </table>
+
+                    <Dialog open={open} onClose={handleToClose}>
+                      <DialogTitle>{" Please fill at least a name and the division!"}</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+
+                        </DialogContentText>
+                        <EditForm />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleToClose}
+                          color="primary" autoFocus>
+                          Cancel Editing
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                    {/* <div>
               {isShowEditForm && (
                 <EditForm
 
                 />
               )}
             </div> */}
-          </div>
-          <div>
-            <button class="btn btn-success" onClick={() => { handleNewClick() }} > Add New Record</button>
-          </div>
-          <br></br>
-          <div>
-            {isShowNewForm && (
-              <NewAddForm
+                  </div>
+                  <div>
+                    <button class="btn btn-success" onClick={() => { handleNewClick() }} > Add New Record</button>
+                  </div>
+                  <br></br>
+                  <div>
+                    {isShowNewForm && (
+                      <NewAddForm
 
-              />
-            )}
-          </div>
-        </div>
-        <br></br>
-        <div>
-                
+                      />
+                    )}
+                  </div>
+                </div>
                 <br></br>
-   
-                   <div style={{ backgroundColor: "lightcoral" }} className="App">
-                 <h4>Tag  ചെയ്യുവ്വാൻ ബാക്കിയുള്ളവർ</h4>
-               </div>
-               <p></p>
-               <div style={{ backgroundColor: "lightcoral" }} className="App">
-                 <table>
-     
-                   <tr>
-                     <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Sr. No.</th>
-                     <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Name</th>
-                     <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>House Name</th>
-                     <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Division</th>
-                     <th style={{ border: "2px solid black", backgroundColor: "yellow" }}> Tagged</th>
-     
-                   </tr>
-                   {tagFilteredUsers.sort(function (a, b) { return a.userId - b.userId }).map((val, key) => {
-                     return (
-                       <tr key={key} style={{ backgroundColor: "lightyellow" }}>
-     
-                         <td style={{ border: "2px solid black" }}>{key + 1}</td>
-                         <td style={{ border: "2px solid black" }}>{val.name}</td>
-                         <td style={{ border: "2px solid black" }}>{val.familyName}</td>
-                         <td style={{ border: "2px solid black" }}>{val.division}</td>
-                         <td style={{ border: "2px solid black" }}><input
-                           type="checkbox"
-                           checked={val.tagged}
-                         /></td>
-                         <td style={{ border: "2px solid black" }}>
-     
-                           {val.whatsappNumber}
-                         </td>
-                         <td style={{ border: "2px solid black" }}>
-     
-                           {val.phoneNumber}
-                         </td>
-                       
-                       </tr>
-     
-                     )
-                   })}
-                 </table>
-     
-     </div>
-     </div>
-     <br></br>
-      </div>
+                <div>
 
-</div>
+                  <br></br>
+
+                  <div style={{ backgroundColor: "lightcoral" }} className="App">
+                    <h4>Tag  ചെയ്യുവ്വാൻ ബാക്കിയുള്ളവർ</h4>
+                  </div>
+                  <p></p>
+                  <div style={{ backgroundColor: "lightcoral", padding: 2, overflowX: 'auto' }} className="App">
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+
+                      <tr>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Sr. No.</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Name</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>House Name</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}>Division</th>
+                        <th style={{ border: "2px solid black", backgroundColor: "yellow" }}> Tagged</th>
+
+                      </tr>
+                      {tagFilteredUsers.sort(function (a, b) { return a.userId - b.userId }).map((val, key) => {
+                        return (
+                          <tr key={key} style={{ backgroundColor: "lightyellow" }}>
+
+                            <td style={{ border: "2px solid black" }}>{key + 1}</td>
+                            <td style={{ border: "2px solid black" }}>{val.name}</td>
+                            <td style={{ border: "2px solid black" }}>{val.familyName}</td>
+                            <td style={{ border: "2px solid black" }}>{val.division}</td>
+                            <td style={{ border: "2px solid black" }}><input
+                              type="checkbox"
+                              checked={val.tagged}
+                            /></td>
+                            <td style={{ border: "2px solid black" }}>
+
+                              {val.whatsappNumber}
+                            </td>
+                            <td style={{ border: "2px solid black" }}>
+
+                              {val.phoneNumber}
+                            </td>
+
+                          </tr>
+
+                        )
+                      })}
+                    </table>
+
+                  </div>
+                </div>
+                <br></br>
+              </div>
+
+            </div>
 
 
 
 
 
 
-       
-         
+
+
           </Row>
           {/* Dark table */}
-       
+
         </Container>
       </>
     );
