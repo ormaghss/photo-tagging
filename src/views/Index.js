@@ -344,6 +344,7 @@ const Index = (props) => {
 
 
 
+
     return (
         <>
             <Header />
@@ -356,15 +357,13 @@ const Index = (props) => {
                 )}
               
 
-                {isBusy && (                                
-                <BeatLoader
+                {isBusy && (<BeatLoader
                     color={"green"}
                     loading={true}
                     size={30}
                     aria-label="Loading Spinner"
                     data-testid="loader"
-                />                
-                )}
+                />)}
                 <button class="btn btn-success" onClick={hideTagging}>Hide / Unhide Tagging</button>
                 {hideTaggingData && (<button class="btn btn-warning">Tags are Hidden!</button>)}
                 <Row>
@@ -460,9 +459,9 @@ const Index = (props) => {
                                                             className="frame"
                                                             style={{
                                                                 maxWidth: '100%',
-                                                                maxHeight: 'calc(100vh - 600px)',
+                                                                maxHeight: 'calc(100vh - 300px)',
                                                                 transform: `scale(${zoomLevel})`,
-                                                                transformOrigin: 'center',
+                                                                transformOrigin: 'top left',
                                                             }}
                                                             ref={containerRef}
                                                         >
