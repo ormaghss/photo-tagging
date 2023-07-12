@@ -24,6 +24,7 @@ import Tables from "views/examples/Tables.js";
 import UserData from "views/examples/UserData";
 import Icons from "views/examples/Icons.js";
 
+
 var routes = [
   {
     path: "/",
