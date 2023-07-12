@@ -14,39 +14,34 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-*/
+*/import React from "react";
 import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
-import Maps from "views/examples/Maps.js";
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
-import Tables from "views/examples/Tables.js";
 import UserData from "views/examples/UserData";
-import Icons from "views/examples/Icons.js";
+import Profile from "views/examples/Profile.js";
 
-
-var routes = [
+const routes = [
   {
-    path: "/",
+    path: "/admin",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: <Index />,
     layout: "/admin",
   },
   {
-    path: "/userdata",
+    path: "/admin/userdata",
     name: "View All Users",
     icon: "ni ni-circle-08 text-pink",
     component: <UserData />,
     layout: "/admin",
   },
   {
-    path: "/user-profile",
+    path: "/admin/user-profile",
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: <Profile />,
     layout: "/admin",
   },
+
   // {
   //   path: "/icons",
   //   name: "Icons",
