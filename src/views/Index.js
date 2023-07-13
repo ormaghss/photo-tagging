@@ -396,9 +396,9 @@ const Index = (props) => {
                             <CardHeader className="bg-transparent">
                                 <Row className="align-items-center">
                                     <div className="col">
-                                        <h6 className="text-uppercase text-light ls-1 mb-1">
+                                        {/* <h6 className="text-uppercase text-light ls-1 mb-1">
                                             Group Photo - SSLC(Batch -1991)
-                                        </h6>
+                                        </h6> */}
 
                                     </div>
                                     {!hideTaggingData && (
