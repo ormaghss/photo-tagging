@@ -378,7 +378,7 @@ const Index = (props) => {
                         )}
                     </div>                   
                     <Col className="mb-12 mb-xl-0" xl="12">
-                    {hideTaggingData ? (
+                    {!hideTaggingData ? (
                     <h3>Zoom upto a level in between 20 and 30 to start tagging. </h3> ): (null)}
                         <button>Current  Zoom Level = {" "}{zoomLevel}</button>
                     {isBusy && (
