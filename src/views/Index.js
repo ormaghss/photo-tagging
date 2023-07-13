@@ -379,7 +379,7 @@ const Index = (props) => {
                     </div>                   
                     <Col className="mb-12 mb-xl-0" xl="12">
                     {!hideTaggingData ? (
-                    <h3>Zoom upto a level in between 20 and 30 to start tagging. </h3> ): (null)}
+                    <h3>Zoom upto a level in between 25 and 30 to start tagging. </h3> ): (null)}
                         <button>Current  Zoom Level = {" "}{zoomLevel}</button>
                     {isBusy && (
                     <div>
@@ -456,7 +456,7 @@ const Index = (props) => {
                                                             </div>
                                                         </div>
                                                         <div>
-                                                        {zoomLevel > 19 && zoomLevel < 31? (
+                                                        {zoomLevel > 24 && zoomLevel < 31? (
                                                             <button className="btn btn-warning" type="button" onClick={handleSaveAll}>
                                                                 Save All
                                                             </button>) :
