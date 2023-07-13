@@ -213,11 +213,11 @@ const Index = (props) => {
     };
 
     const handleZoomIn = () => {
-        setZoomLevel((prevZoom) => prevZoom + 0.1);
+        setZoomLevel((prevZoom) => prevZoom + 1);
     };
 
     const handleZoomOut = () => {
-        setZoomLevel((prevZoom) => Math.max(prevZoom - 0.1, 0.1));
+        setZoomLevel((prevZoom) => Math.max(prevZoom - 1, 1));
     };
 
     const handleResetZoom = () => {
@@ -378,7 +378,8 @@ const Index = (props) => {
                         )}
                     </div>                   
                     <Col className="mb-12 mb-xl-0" xl="12">
-                    <h3>Zoom upto level in between 20 and 30 to start tagging. </h3>
+                    {hideTaggingData ? (
+                    <h3>Zoom upto a level in between 20 and 30 to start tagging. </h3> ): (null)}
                         <button>Current  Zoom Level = {" "}{zoomLevel}</button>
                     {isBusy && (
                     <div>
