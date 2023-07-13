@@ -378,6 +378,8 @@ const Index = (props) => {
                         )}
                     </div>                   
                     <Col className="mb-12 mb-xl-0" xl="12">
+                    <h3>Zoom upto level in between 20 and 30 to start tagging. </h3>
+                        <button>Current  Zoom Level = {" "}{zoomLevel}</button>
                     {isBusy && (
                     <div>
                          <h3> Please wait for a few minutes for the loading of names before tagging!</h3>
@@ -453,9 +455,12 @@ const Index = (props) => {
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <button class="btn btn-warning" type="button" onClick={handleSaveAll}>
+                                                        {zoomLevel > 19 && zoomLevel < 31? (
+                                                            <button className="btn btn-warning" type="button" onClick={handleSaveAll}>
                                                                 Save All
-                                                            </button>
+                                                            </button>) :
+                                                            (null)
+                                                        }
                                                         </div>
                                                     </div>
                                                     <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
