@@ -355,8 +355,10 @@ const Index = (props) => {
                         <br></br>
                         <h4>  {duplicateErorr}</h4> </div>
                 )}          
-                <button class="btn btn-success" onClick={hideTagging}>Hide / Unhide Tagging</button>
-                {hideTaggingData && (<button class="btn btn-warning">Tags are Hidden!</button>)}
+                {!isBusy && (
+                    <button class="btn btn-success" onClick={hideTagging}>Hide / Unhide Tagging</button>
+                )}
+                {hideTaggingData && !isBusy && (<button class="btn btn-warning">Tags are Hidden!</button>)}
                 <Row>
                     <div>
                         {validating && (
@@ -374,7 +376,8 @@ const Index = (props) => {
                                 <br></br>
                                 <h3>  {duplicateErorr}</h3> </div>
                         )}
-                    </div>
+                    </div>                   
+                    <Col className="mb-12 mb-xl-0" xl="12">
                     {isBusy && (
                     <div>
                          <h3> Please wait for a few minutes for the loading of names before tagging!</h3>
@@ -386,7 +389,6 @@ const Index = (props) => {
                             data-testid="loader"
                         />
                     </div>)}
-                    <Col className="mb-12 mb-xl-0" xl="12">
                         <Card className="bg-gradient-default shadow">
                             <CardHeader className="bg-transparent">
                                 <Row className="align-items-center">
