@@ -391,7 +391,7 @@ const UserData = () => {
                               <button class="btn btn-danger" onClick={(e) => {
                                 e.preventDefault();
                                 if (
-                                  window.confirm(" ഈ റെക്കോർഡ് പൂര്ണമായിട്ടും ഡിലീറ്റ് ചെയ്യണോ?")
+                                  window.confirm(val.name+", "+ val.division +" ഈ റെക്കോർഡ് പൂര്ണമായിട്ടും ഡിലീറ്റ് ചെയ്യണോ?")
                                 ) {
                                   handleDeleteClick(val)
                                 }
