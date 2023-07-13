@@ -354,16 +354,7 @@ const Index = (props) => {
                     <div style={{ color: 'red', lineHeight: 1, padding: 1 }} >
                         <br></br>
                         <h4>  {duplicateErorr}</h4> </div>
-                )}
-              
-
-                {isBusy && (<BeatLoader
-                    color={"green"}
-                    loading={true}
-                    size={30}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />)}
+                )}          
                 <button class="btn btn-success" onClick={hideTagging}>Hide / Unhide Tagging</button>
                 {hideTaggingData && (<button class="btn btn-warning">Tags are Hidden!</button>)}
                 <Row>
@@ -384,6 +375,17 @@ const Index = (props) => {
                                 <h3>  {duplicateErorr}</h3> </div>
                         )}
                     </div>
+                    {isBusy && (
+                    <div>
+                         <h3> Please wait for a few minutes for the loading of names before tagging!</h3>
+                        <BeatLoader
+                            color={"green"}
+                            loading={true}
+                            size={30}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
+                    </div>)}
                     <Col className="mb-12 mb-xl-0" xl="12">
                         <Card className="bg-gradient-default shadow">
                             <CardHeader className="bg-transparent">
