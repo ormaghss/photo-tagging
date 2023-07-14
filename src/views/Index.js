@@ -145,35 +145,25 @@ const Index = (props) => {
 
     const handleImageClick = (event) => {
         const { offsetX, offsetY } = event.nativeEvent;
-        const image = imageRef.current;
-        const container = containerRef.current;
-      
+
         if (currentTag1.trim() === '') {
-          return;
+            return;
         }
-      
+
         const selectedName = currentTag1.trim();
         const user = tagFilteredUsers.find((element) => element.name === selectedName);
-      
-        const containerRect = container.getBoundingClientRect();
-        const imageRect = image.getBoundingClientRect();
-      
-        const scaleX = imageRect.width / containerRect.width;
-        const scaleY = imageRect.height / containerRect.height;
-      
-        const scaledOffsetX = (offsetX - containerRect.left) * scaleX;
-        const scaledOffsetY = (offsetY - containerRect.top) * scaleY;
-      
+
         const newTag = {
-          x: scaledOffsetX,
-          y: scaledOffsetY,
-          name: selectedName,
-          division: user ? user.division : '',
+            x: offsetX,
+            y: offsetY,
+            name: selectedName,
+            division: user ? user.division : '', // Include the division value
         };
-      
+
         setTags([...tags, newTag]);
         setCurrentTag1('');
-      };
+    };
+
       
 
 
@@ -507,39 +497,34 @@ const Index = (props) => {
                                                                     }}
                                                                     onClick={handleImageClick}
                                                                 />
-                                                                {tags.map((tag, index) => {
-                                                                    const { x, y, name, division } = tag;
-
-                                                                    // Calculate the scaled position based on the zoom level
-                                                                    const scaledX = x / zoomLevel;
-                                                                    const scaledY = y / zoomLevel;
-
-                                                                    return (
-                                                                        <div
-                                                                            key={index}
-                                                                            style={{
-                                                                                backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                                                                                padding: '5px',
-                                                                                borderRadius: '4px',
-                                                                                color: 'white',
-                                                                                cursor: 'pointer',
-                                                                                position: 'absolute',
-                                                                                left: `${scaledX}px`,
-                                                                                top: `${scaledY}px`,
-                                                                                transform: `scale(${1 / zoomLevel})`,
-                                                                                transformOrigin: 'top left',
-                                                                                opacity: hoveredTag === tag ? 1 : 0.5,
-                                                                            }}
-                                                                            onClick={() => handleTagClick(tag)}
-                                                                            onMouseEnter={() => handleTagHover(tag)}
-                                                                            onMouseLeave={handleTagLeave}
-                                                                            onTouchStart={() => handleTagHover(tag)}
-                                                                            onTouchEnd={handleTagLeave}
-                                                                        >
-                                                                            {`${name}, ${division}`}
-                                                                        </div>
-                                                                    );
-                                                                })}
+                                                            {tags.map((tag, index) => {
+                                                                const { x, y, name, division } = tag;
+                                                                return (
+                                                                    <div
+                                                                        key={index}
+                                                                        style={{
+                                                                            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                                                                            padding: '5px',
+                                                                            borderRadius: '4px',
+                                                                            color: 'white',
+                                                                            cursor: 'pointer',
+                                                                            position: 'absolute',
+                                                                            left: `${x}px`,
+                                                                            top: `${y}px`,
+                                                                            transform: `scale(${1 / zoomLevel})`,
+                                                                            transformOrigin: 'top left',
+                                                                            opacity: hoveredTag === tag ? 1 : 0.5,
+                                                                        }}
+                                                                        onClick={() => handleTagClick(tag)}
+                                                                        onMouseEnter={() => handleTagHover(tag)}
+                                                                        onMouseLeave={handleTagLeave}
+                                                                        onTouchStart={() => handleTagHover(tag)}
+                                                                        onTouchEnd={handleTagLeave}
+                                                                    >
+                                                                        {`${name}, ${division}`}
+                                                                    </div>
+                                                                );
+                                                            })}
 
                                                             </div>
                                                         </div>
