@@ -145,24 +145,36 @@ const Index = (props) => {
 
     const handleImageClick = (event) => {
         const { offsetX, offsetY } = event.nativeEvent;
-
+        const image = imageRef.current;
+        const container = containerRef.current;
+      
         if (currentTag1.trim() === '') {
-            return;
+          return;
         }
-
+      
         const selectedName = currentTag1.trim();
         const user = tagFilteredUsers.find((element) => element.name === selectedName);
-
+      
+        const containerRect = container.getBoundingClientRect();
+        const imageRect = image.getBoundingClientRect();
+      
+        const scaleX = imageRect.width / containerRect.width;
+        const scaleY = imageRect.height / containerRect.height;
+      
+        const scaledOffsetX = (offsetX - containerRect.left) * scaleX;
+        const scaledOffsetY = (offsetY - containerRect.top) * scaleY;
+      
         const newTag = {
-            x: offsetX,
-            y: offsetY,
-            name: selectedName,
-            division: user ? user.division : '', // Include the division value
+          x: scaledOffsetX,
+          y: scaledOffsetY,
+          name: selectedName,
+          division: user ? user.division : '',
         };
-
+      
         setTags([...tags, newTag]);
         setCurrentTag1('');
-    };
+      };
+      
 
 
     const handleTagClick = (tag) => {
@@ -244,7 +256,7 @@ const Index = (props) => {
         } catch (error) {
             throw error;
         } finally {
-           setBusy(false);
+            setBusy(false);
         }
     };
 
@@ -292,7 +304,7 @@ const Index = (props) => {
             fetchUserData();
             // setBusy(false);
         }
-        
+
     };
 
     // Handle the search input change
@@ -350,11 +362,11 @@ const Index = (props) => {
             <Header />
             {/* Page content */}
             <Container className="mt--7" fluid>
-            {validating && (
+                {validating && (
                     <div style={{ color: 'red', lineHeight: 1, padding: 1 }} >
                         <br></br>
                         <h4>  {duplicateErorr}</h4> </div>
-                )}          
+                )}
                 {!isBusy && (
                     <button class="btn btn-success" onClick={hideTagging}>Hide / Unhide Tagging</button>
                 )}
@@ -376,22 +388,22 @@ const Index = (props) => {
                                 <br></br>
                                 <h3>  {duplicateErorr}</h3> </div>
                         )}
-                    </div>                   
+                    </div>
                     <Col className="mb-12 mb-xl-0" xl="12">
-                    {!hideTaggingData ? (
-                    <h3>Zoom upto a level in between 25 and 30 to start tagging. </h3> ): (null)}
+                        {!hideTaggingData ? (
+                            <h3>Zoom upto a level in between 25 and 30 to start tagging. </h3>) : (null)}
                         <button>Current  Zoom Level = {" "}{zoomLevel}</button>
-                    {isBusy && (
-                    <div>
-                         <h3> Please wait for a few minutes for the loading of names before tagging!</h3>
-                        <BeatLoader
-                            color={"green"}
-                            loading={true}
-                            size={30}
-                            aria-label="Loading Spinner"
-                            data-testid="loader"
-                        />
-                    </div>)}
+                        {isBusy && (
+                            <div>
+                                <h3> Please wait for a few minutes for the loading of names before tagging!</h3>
+                                <BeatLoader
+                                    color={"green"}
+                                    loading={true}
+                                    size={30}
+                                    aria-label="Loading Spinner"
+                                    data-testid="loader"
+                                />
+                            </div>)}
                         <Card className="bg-gradient-default shadow">
                             <CardHeader className="bg-transparent">
                                 <Row className="align-items-center">
@@ -456,12 +468,12 @@ const Index = (props) => {
                                                             </div>
                                                         </div>
                                                         <div>
-                                                        {zoomLevel > 24 && zoomLevel < 31? (
-                                                            <button className="btn btn-warning" type="button" onClick={handleSaveAll}>
-                                                                Save All
-                                                            </button>) :
-                                                            (null)
-                                                        }
+                                                            {zoomLevel > 24 && zoomLevel < 31 ? (
+                                                                <button className="btn btn-warning" type="button" onClick={handleSaveAll}>
+                                                                    Save All
+                                                                </button>) :
+                                                                (null)
+                                                            }
                                                         </div>
                                                     </div>
                                                     <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -496,7 +508,12 @@ const Index = (props) => {
                                                                     onClick={handleImageClick}
                                                                 />
                                                                 {tags.map((tag, index) => {
-                                                                    const { x, y, name, division } = tag; // Destructure the division property
+                                                                    const { x, y, name, division } = tag;
+
+                                                                    // Calculate the scaled position based on the zoom level
+                                                                    const scaledX = x / zoomLevel;
+                                                                    const scaledY = y / zoomLevel;
+
                                                                     return (
                                                                         <div
                                                                             key={index}
@@ -507,8 +524,8 @@ const Index = (props) => {
                                                                                 color: 'white',
                                                                                 cursor: 'pointer',
                                                                                 position: 'absolute',
-                                                                                left: `${x}px`,
-                                                                                top: `${y}px`,
+                                                                                left: `${scaledX}px`,
+                                                                                top: `${scaledY}px`,
                                                                                 transform: `scale(${1 / zoomLevel})`,
                                                                                 transformOrigin: 'top left',
                                                                                 opacity: hoveredTag === tag ? 1 : 0.5,
@@ -519,10 +536,11 @@ const Index = (props) => {
                                                                             onTouchStart={() => handleTagHover(tag)}
                                                                             onTouchEnd={handleTagLeave}
                                                                         >
-                                                                            {`${name}, ${division}`} {/* Display the name and division */}
+                                                                            {`${name}, ${division}`}
                                                                         </div>
                                                                     );
                                                                 })}
+
                                                             </div>
                                                         </div>
                                                     </div>
