@@ -70,7 +70,7 @@ const Index = (props) => {
     const [currentTag2, setCurrentTag2] = useState('');
     //   const [sampleNames1] = useState(['John', 'Jane', 'Mike', 'Sarah']); // Sample names for first dropdown list
     const [sampleNames2] = useState(["10A", "10B", "10C", "Teacher"]); // Sample names for second dropdown list
-    const [zoomLevel, setZoomLevel] = useState(10);
+    const [zoomLevel, setZoomLevel] = useState(1);
     const [hoveredTag, setHoveredTag] = useState(null);
     const [isBusy, setBusy] = useState(true);
     const [error, setError] = useState(false);
@@ -488,7 +488,7 @@ const Index = (props) => {
 
                                                                 <img
                                                                     ref={imageRef}
-                                                                    src="https://res.cloudinary.com/course4u/image/upload/v1686154431/ghss/photoshop-edited_8_tbhtsv.jpg" class="responsive"
+                                                                    src="https://res.cloudinary.com/course4u/image/upload/v1691531557/ghss/photoshop-edited_9_zsq36x.jpg" class="responsive"
                                                                     alt=""
                                                                     style={{
                                                                         display: 'block',
@@ -577,7 +577,7 @@ const Index = (props) => {
 
                                                                 <img
                                                                     ref={imageRef}
-                                                                    src="https://res.cloudinary.com/course4u/image/upload/v1686154431/ghss/photoshop-edited_8_tbhtsv.jpg" class="responsive"
+                                                                    src="https://res.cloudinary.com/course4u/image/upload/v1691531557/ghss/photoshop-edited_9_zsq36x.jpg" class="responsive"
                                                                     alt=""
                                                                     style={{
                                                                         display: 'block',
