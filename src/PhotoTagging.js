@@ -97,7 +97,7 @@ const PhotoTagging = (props) => {
   const fetchUserData = async () => {
     setBusy(true);
     try {
-      const response = await api.get('http://localhost:8080/AllUsers'); // Use the Axios instance instead of axios directly
+      const response = await api.get('https://photo-tagging-java.onrender.com//AllUsers'); // Use the Axios instance instead of axios directly
       if (response.status === 200) {
         setUserData(response.data);
         const sortedUsers = response.data
