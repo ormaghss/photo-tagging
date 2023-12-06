@@ -38,14 +38,14 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 // core components
-import Header from "components/Headers/Header.js";
+import Header from "./Headers/Header.js";
 import React, { useEffect, useState } from "react"
 //import '../App.css'
 import axios from 'axios';
 import BeatLoader from "react-spinners/BeatLoader";
 import PropagateLoader from "react-spinners/PropagateLoader";
-import whatsApp from '../../assets/img/whatsapp.png';
-import phone from "../../assets/img/phone.png";
+import whatsApp from './assets/img/whatsapp.png';
+import phone from "./assets/img/phone.png";
 //import "./styles.css";
 import Form from "react-jsonschema-form";
 
