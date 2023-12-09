@@ -70,7 +70,7 @@ const Index = (props) => {
     const [currentTag2, setCurrentTag2] = useState('');
     //   const [sampleNames1] = useState(['John', 'Jane', 'Mike', 'Sarah']); // Sample names for first dropdown list
     const [sampleNames2] = useState(["10A", "10B", "10C", "Teacher"]); // Sample names for second dropdown list
-    const [zoomLevel, setZoomLevel] = useState(1);
+    const [zoomLevel, setZoomLevel] = useState(5);
     const [hoveredTag, setHoveredTag] = useState(null);
     const [isBusy, setBusy] = useState(true);
     const [error, setError] = useState(false);
@@ -349,25 +349,32 @@ const Index = (props) => {
     useEffect(() => {
         const container = containerRef.current;
         const floatingControls = floatingControlsRef.current;
-        
         fetchUserData();
         if (!container) {
             // Handle the case when the container element is not available
             return;
         }
-        container.addEventListener('wheel', handleWheel, { passive: false });
-        // Add the following code for search functionality      
-
+    
+        // Function to update hideTaggingData based on zoom level
+        const updateHideTaggingData = () => {
+            if (zoomLevel < 25 || zoomLevel > 30) {
+                setHideTaggingData(true);
+            } else {
+                setHideTaggingData(false);
+            }
+        };
+    
+        // Event listener for wheel event
+        container.addEventListener('wheel', (event) => {
+            handleWheel(event);
+            updateHideTaggingData(); // Update hideTaggingData on wheel event
+        }, { passive: false });
+    
         return () => {
             container.removeEventListener('wheel', handleWheel);
         };
-        if (zoomLevel < 25 || zoomLevel > 30) {
-            setHideTaggingData(true);
-        } else {
-            setHideTaggingData(false);
-        }
-    }, [zoomLevel]);
-
+    }, [zoomLevel]); // Include zoomLevel in the dependency array
+    
 
 
 
