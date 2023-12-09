@@ -1,35 +1,53 @@
-/* src/App.css */
-
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  width: 375px; /* Set a fixed width for mobile screens */
-  margin: 0 auto;
-  padding: 20px;
- }
-
-.page {
-  background-color: #f0f0f0;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-/* MobileNavbar.css */
-.mobile-navbar {
+.app-container {
+  position: relative;
   display: flex;
-  justify-content: space-around;
-  background-color: #333;
-  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden; /* Hide overflow */
 }
 
-.mobile-navbar a {
-  color: white;
-  text-decoration: none;
+.frame {
+  max-width: 375px; /* Set the maximum width to 375px for mobile screens */
+  width: 100%;
+  height: auto; /* Auto height to accommodate content */
+  max-height: 100vh; /* Set a maximum height */
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Align items to the center vertically */
+  background: linear-gradient(to bottom, #2E3047 0%, #1F2335 100%) fixed;
+  background-size: cover; /* Adjust the background size */
+  background-position: top center; /* Adjust the background position */
+  position: relative; /* Add position relative */
+  margin-bottom: 0; /* Set margin to control the gap at the bottom */
+  margin-top: -200px; /* Add a negative top margin */
 }
 
+.frame img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Maintain aspect ratio and contain within the container */
+  object-position: center top; /* Center horizontally and align to the top vertically */
+}
 
+.user-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+/* Add a media query to override the fixed width for larger screens */
+/* Add a media query to target mobile screens */
+@media (max-width: 767px) {
+  .bg-gradient-default.shadow {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
 
+  .frame {
+    align-items: center; /* Center items vertically on mobile screens */
+  }
+}
