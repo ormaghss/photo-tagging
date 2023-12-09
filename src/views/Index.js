@@ -85,7 +85,7 @@ const Index = (props) => {
     const [hideTaggingData, setHideTaggingData] = useState(false);
     const [tagFilteredUsers, setTagFilteredUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-
+    const [enableTagging, setEnableTagging] = useState(false);
 
 
 
@@ -107,7 +107,13 @@ const Index = (props) => {
     };
 
 
-
+    const handleEnableTagging = () => {
+        setEnableTagging(!enableTagging);
+        if (!enableTagging) {
+          setZoomLevel(25); // Set the initial zoom level when tagging is enabled
+        }
+      };
+    
 
     const api = axios.create({
         baseURL: 'http://localhost:3000', // Replace with your base URL
@@ -116,26 +122,26 @@ const Index = (props) => {
     const fetchUserData = async () => {
         setBusy(true);
         try {
-            const response = await api.get('https://photo-tagging-java.onrender.com/AllUsers'); // Use the Axios instance instead of axios directly
-            if (response.status === 200) {
-                setUserData(response.data);
-                const sortedUsers = response.data
-                    .filter(item => !item.tagged);
-
-                setUserNames(sortedUsers);
-                setUserNamesLength(sortedUsers.length);
-                const filteredUsers = await sortedUsers.filter(user => !user.tagged);
-                setTagFilteredUsers(filteredUsers);
-            }
+          const response = await api.get('https://photo-tagging-java.onrender.com/AllUsers'); // Use the Axios instance instead of axios directly
+          if (response.status === 200) {
+            setUserData(response.data);
+            const sortedUsers = response.data
+              .filter(item => !item.tagged);
+    
+            setUserNames(sortedUsers);
+            setUserNamesLength(sortedUsers.length);
+            const filteredUsers = await sortedUsers.filter(user => !user.tagged);
+            setTagFilteredUsers(filteredUsers);
+          }
         } catch (error) {
-            console.error("Failed to fetch user data:", error);
-            // Handle the error gracefully (e.g., show an error message)
+          console.error("Failed to fetch user data:", error);
+          // Handle the error gracefully (e.g., show an error message)
         } finally {
-            // setBusy(false);
+          // setBusy(false);
         }
         fetchData();
-    };
-
+      };
+    
 
 
 
@@ -166,24 +172,36 @@ const Index = (props) => {
 
       
 
-
     const handleTagClick = (tag) => {
         if (window.confirm('Are you sure you want to delete this tag?')) {
-            const updatedTags = tags.filter((t) => t !== tag);
-            setTags(updatedTags);
+          const updatedTags = tags.filter((t) => t !== tag);
+          setTags(updatedTags);
+      
+          // Extract the name from the tag
+          const selectedName = tag.name;
+      
+          // Check if the name is not already in the list to avoid duplicates
+          if (!tagFilteredUsers.some((element) => element.name === selectedName)) {
+            setTagFilteredUsers([...tagFilteredUsers, { name: selectedName }]);
+          }
         }
-    };
-
-    const handleTagInput1 = (event) => {
+      };
+      
+      const handleTagInput1 = (event) => {
         const selectedName = event.target.value;
-
+      
         // Find the user with the selected name
         const user = tagFilteredUsers.find((element) => element.name === selectedName);
-
+      
         // Set the currentTag1 value including the division if the user is found
         const currentTagValue = user ? `${selectedName}, ${user.division}` : selectedName;
+      
+        // Remove the selectedName from the tagFilteredUsers list
+        const updatedFilteredUsers = tagFilteredUsers.filter((element) => element.name !== selectedName);
+      
+        setTagFilteredUsers(updatedFilteredUsers);
         setCurrentTag1(currentTagValue);
-    };
+      };
 
 
 
@@ -331,6 +349,7 @@ const Index = (props) => {
     useEffect(() => {
         const container = containerRef.current;
         const floatingControls = floatingControlsRef.current;
+        
         fetchUserData();
         if (!container) {
             // Handle the case when the container element is not available
@@ -342,7 +361,13 @@ const Index = (props) => {
         return () => {
             container.removeEventListener('wheel', handleWheel);
         };
-    }, []);
+        if (zoomLevel < 25 || zoomLevel > 30) {
+            setHideTaggingData(true);
+        } else {
+            setHideTaggingData(false);
+        }
+    }, [zoomLevel]);
+
 
 
 
@@ -382,7 +407,10 @@ const Index = (props) => {
                     <Col className="mb-12 mb-xl-0" xl="12">
                         {!hideTaggingData ? (
                             <h3>Zoom upto a level in between 25 and 30 to start tagging. </h3>) : (null)}
-                        <button>Current  Zoom Level = {" "}{zoomLevel}</button>
+                        <button>Current  Zoom Level = {" "}{zoomLevel}</button>              <button onClick={handleEnableTagging}>
+                {enableTagging ? 'Disable Tagging' : 'Enable Tagging'}
+              </button>
+
                         {isBusy && (
                             <div>
                                 <h3> Please wait for a few minutes for the loading of names before tagging!</h3>
@@ -420,6 +448,7 @@ const Index = (props) => {
                                                                 Reset Zoom
                                                             </button>
                                                         </div>
+                                                        {zoomLevel > 24 && zoomLevel < 31 ? (
                                                         <div style={{ marginBottom: '20px' }}>
                                                             <div className="select-container">
                                                                 <div className="select-wrapper">
@@ -457,6 +486,7 @@ const Index = (props) => {
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                        ) : null}
                                                         <div>
                                                             {zoomLevel > 24 && zoomLevel < 31 ? (
                                                                 <button className="btn btn-warning" type="button" onClick={handleSaveAll}>
@@ -465,6 +495,7 @@ const Index = (props) => {
                                                                 (null)
                                                             }
                                                         </div>
+                                                        
                                                     </div>
                                                     <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                                         <div
