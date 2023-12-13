@@ -121,7 +121,7 @@ const Index = (props) => {
     const fetchUserData = async () => {
         setBusy(true);
         try {
-            const response = await api.get('http://localhost:8080/AllUsers'); // Use the Axios instance instead of axios directly
+            const response = await api.get('https://photo-tagging-java.onrender.com/AllUsers'); // Use the Axios instance instead of axios directly
             if (response.status === 200) {
                 setUserData(response.data);
                 const sortedUsers = response.data
@@ -246,7 +246,7 @@ const Index = (props) => {
         setBusy(true);
         try {
 
-            const response = await axios.get("http://localhost:8080/taggedPhoto");
+            const response = await axios.get("https://photo-tagging-java.onrender.com/taggedPhoto");
             if (response.status === 200) {
                 setTags(JSON.parse(JSON.stringify(response.data)));
                 setTaggedData(JSON.parse(JSON.stringify(response.data)))
@@ -283,7 +283,7 @@ const Index = (props) => {
             const headers = {
                 'Content-Type': 'application/json'
             }
-            let url = "http://localhost:8080/addTagging";
+            let url = "https://photo-tagging-java.onrender.com/addTagging";
             let data = {
                 "taggedUsers": {}
             }
