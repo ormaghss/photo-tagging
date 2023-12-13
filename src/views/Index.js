@@ -86,6 +86,8 @@ const Index = (props) => {
     const [tagFilteredUsers, setTagFilteredUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [enableTagging, setEnableTagging] = useState(false);
+    const [zoomLevelBeyondTagging, setZoomLevelBeyondTagging] = useState(true);
+    const [isZooming, setZooming] = useState(false);
 
 
 
@@ -108,12 +110,9 @@ const Index = (props) => {
 
 
     const handleEnableTagging = () => {
-        setEnableTagging(!enableTagging);
-        if (!enableTagging) {
-          setZoomLevel(25); // Set the initial zoom level when tagging is enabled
-        }
-      };
-    
+        setZoomLevel(26); // Set the initial zoom level when tagging is enabled        
+    };
+
 
     const api = axios.create({
         baseURL: 'http://localhost:3000', // Replace with your base URL
@@ -122,26 +121,26 @@ const Index = (props) => {
     const fetchUserData = async () => {
         setBusy(true);
         try {
-          const response = await api.get('https://photo-tagging-java.onrender.com/AllUsers'); // Use the Axios instance instead of axios directly
-          if (response.status === 200) {
-            setUserData(response.data);
-            const sortedUsers = response.data
-              .filter(item => !item.tagged);
-    
-            setUserNames(sortedUsers);
-            setUserNamesLength(sortedUsers.length);
-            const filteredUsers = await sortedUsers.filter(user => !user.tagged);
-            setTagFilteredUsers(filteredUsers);
-          }
+            const response = await api.get('http://localhost:8080/AllUsers'); // Use the Axios instance instead of axios directly
+            if (response.status === 200) {
+                setUserData(response.data);
+                const sortedUsers = response.data
+                    .filter(item => !item.tagged);
+
+                setUserNames(sortedUsers);
+                setUserNamesLength(sortedUsers.length);
+                const filteredUsers = await sortedUsers.filter(user => !user.tagged);
+                setTagFilteredUsers(filteredUsers);
+            }
         } catch (error) {
-          console.error("Failed to fetch user data:", error);
-          // Handle the error gracefully (e.g., show an error message)
+            console.error("Failed to fetch user data:", error);
+            // Handle the error gracefully (e.g., show an error message)
         } finally {
-          // setBusy(false);
+            // setBusy(false);
         }
         fetchData();
-      };
-    
+    };
+
 
 
 
@@ -167,65 +166,52 @@ const Index = (props) => {
         };
 
         setTags([...tags, newTag]);
+        setTagFilteredUsers((prevUsers) => prevUsers.filter((user) => user.name !== selectedName || user.division !== newTag.division));
         setCurrentTag1('');
     };
 
-      
+
 
     const handleTagClick = (tag) => {
         if (window.confirm('Are you sure you want to delete this tag?')) {
-          const updatedTags = tags.filter((t) => t !== tag);
-          setTags(updatedTags);
-      
-          // Extract the name from the tag
-          const selectedName = tag.name;
-      
-          // Check if the name is not already in the list to avoid duplicates
-          if (!tagFilteredUsers.some((element) => element.name === selectedName)) {
-            setTagFilteredUsers([...tagFilteredUsers, { name: selectedName }]);
-          }
+            const updatedTags = tags.filter((t) => t !== tag);
+            setTags(updatedTags);
+
+            // Extract the name from the tag
+            const selectedName = tag.name;
+            const selectedDivision = tag.division;
+
+            // Check if the name is not already in the list to avoid duplicates
+            if (
+                !tagFilteredUsers.some(
+                    (element) => element.name === selectedName && element.division === selectedDivision
+                )
+            ) {
+                // Bring back the deleted tag to tagFilteredUsers
+                setTagFilteredUsers((prevUsers) => [
+                    ...prevUsers,
+                    { name: selectedName, division: selectedDivision },
+                ]);
+            }
         }
-      };
-      
-      const handleTagInput1 = (event) => {
+    };
+
+
+    const handleTagInput1 = (event) => {
         const selectedName = event.target.value;
-      
+
         // Find the user with the selected name
         const user = tagFilteredUsers.find((element) => element.name === selectedName);
-      
+
         // Set the currentTag1 value including the division if the user is found
         const currentTagValue = user ? `${selectedName}, ${user.division}` : selectedName;
-      
+
         // Remove the selectedName from the tagFilteredUsers list
         const updatedFilteredUsers = tagFilteredUsers.filter((element) => element.name !== selectedName);
-      
+
         setTagFilteredUsers(updatedFilteredUsers);
         setCurrentTag1(currentTagValue);
-      };
-
-
-
-
-    //     const handleTagInput1 = (event) => {
-    //         const selectedName = event.target.value;
-
-
-    //         // Find the user with the selected name
-    //         const user = tagFilteredUsers.find((element) => element.name === selectedName);
-    //       console.log(user)
-    //         // Set the division value if the user is found
-    //         setCurrentTag1(selectedName, user ? user.division : '');
-    //         setCurrentTag2(user ? user.division : '');
-
-    //         const divisionValue = user ? user.division : '';
-
-    //   // Find the tag with the selected name and update the division value
-    //   const updatedTags = tags.map((tag) =>
-    //     tag.name === selectedName ? { ...tag, division: divisionValue } : tag
-    //   );
-
-    //   setTags(updatedTags);
-    //     };
+    };
 
     const getDivisions = () => {
         const user = tagFilteredUsers.find((element) => element.name === currentTag1);
@@ -233,11 +219,15 @@ const Index = (props) => {
     };
 
     const handleZoomIn = () => {
+        setZooming(true);
         setZoomLevel((prevZoom) => prevZoom + 1);
+        checkZoomLevel();
     };
 
     const handleZoomOut = () => {
+        setZooming(true);
         setZoomLevel((prevZoom) => Math.max(prevZoom - 1, 1));
+        checkZoomLevel();
     };
 
     const handleResetZoom = () => {
@@ -256,7 +246,7 @@ const Index = (props) => {
         setBusy(true);
         try {
 
-            const response = await axios.get("https://photo-tagging-java.onrender.com/taggedPhoto");
+            const response = await axios.get("http://localhost:8080/taggedPhoto");
             if (response.status === 200) {
                 setTags(JSON.parse(JSON.stringify(response.data)));
                 setTaggedData(JSON.parse(JSON.stringify(response.data)))
@@ -289,11 +279,11 @@ const Index = (props) => {
         }
 
         if (!hasDuplicate) {
-            setBusy(true);
+            // setBusy(true);
             const headers = {
                 'Content-Type': 'application/json'
             }
-            let url = "https://photo-tagging-java.onrender.com/addTagging";
+            let url = "http://localhost:8080/addTagging";
             let data = {
                 "taggedUsers": {}
             }
@@ -336,6 +326,8 @@ const Index = (props) => {
 
     const handleWheel = (event) => {
         event.preventDefault();
+        setZooming(true);
+
         if (event.deltaY < 0) {
             handleZoomIn();
         } else {
@@ -344,37 +336,45 @@ const Index = (props) => {
     };
 
 
+    const checkZoomLevel = () => {
+        // Check zoom level and set zoomLevelBeyondTagging
+        if (zoomLevel <= 24 || zoomLevel > 30) {
+            setZoomLevelBeyondTagging(true);
+        } else {
+            setZoomLevelBeyondTagging(false);
+        }
+
+    };
 
 
     useEffect(() => {
         const container = containerRef.current;
-        const floatingControls = floatingControlsRef.current;
-        fetchUserData();
+
+        if (!isZooming) {
+            fetchUserData();
+        }
+
+        checkZoomLevel();
+
         if (!container) {
-            // Handle the case when the container element is not available
             return;
         }
-    
-        // Function to update hideTaggingData based on zoom level
-        const updateHideTaggingData = () => {
-            if (zoomLevel < 25 || zoomLevel > 30) {
-                setHideTaggingData(true);
+
+        const handleWheelEvent = (event) => {
+            setZooming(true);
+            if (event.deltaY < 0) {
+                handleZoomIn();
             } else {
-                setHideTaggingData(false);
+                handleZoomOut();
             }
         };
-    
-        // Event listener for wheel event
-        container.addEventListener('wheel', (event) => {
-            handleWheel(event);
-            updateHideTaggingData(); // Update hideTaggingData on wheel event
-        }, { passive: false });
-    
+
+        container.addEventListener('wheel', handleWheelEvent, { passive: false });
+
         return () => {
-            container.removeEventListener('wheel', handleWheel);
+            container.removeEventListener('wheel', handleWheelEvent);
         };
-    }, [zoomLevel]); // Include zoomLevel in the dependency array
-    
+    }, [zoomLevelBeyondTagging, zoomLevel, isZooming]);
 
 
 
@@ -389,10 +389,6 @@ const Index = (props) => {
                         <br></br>
                         <h4>  {duplicateErorr}</h4> </div>
                 )}
-                {!isBusy && (
-                    <button class="btn btn-success" onClick={hideTagging}>Hide / Unhide Tagging</button>
-                )}
-                {hideTaggingData && !isBusy && (<button class="btn btn-warning">Tags are Hidden!</button>)}
                 <Row>
                     <div>
                         {validating && (
@@ -413,10 +409,11 @@ const Index = (props) => {
                     </div>
                     <Col className="mb-12 mb-xl-0" xl="12">
                         {!hideTaggingData ? (
-                            <h3>Zoom upto a level in between 25 and 30 to start tagging. </h3>) : (null)}
-                        <button>Current  Zoom Level = {" "}{zoomLevel}</button>              <button onClick={handleEnableTagging}>
-                {enableTagging ? 'Disable Tagging' : 'Enable Tagging'}
-              </button>
+                            <p>Zoom upto a level in between 25 and 30 to start tagging. </p>) : (null)}
+                        <button>Current  Zoom Level = {" "}{zoomLevel}</button>
+                        <button onClick={handleEnableTagging}>
+                            {"EnableTagging"}
+                        </button>
 
                         {isBusy && (
                             <div>
@@ -429,7 +426,7 @@ const Index = (props) => {
                                     data-testid="loader"
                                 />
                             </div>)}
-                            <Card className="bg-gradient-default shadow" style={{ overflow: 'hidden', marginBottom: '0', paddingBottom: '0' }}>
+                        <Card className="bg-gradient-default shadow" style={{ overflow: 'hidden', marginBottom: '0', paddingBottom: '0' }}>
                             <CardHeader className="bg-transparent">
                                 <Row className="align-items-center">
                                     <div className="col">
@@ -443,7 +440,7 @@ const Index = (props) => {
                                             <div className="frame">
 
                                                 <div style={{ textAlign: 'center' }}>
-                                                    <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
+                                                    <div style={{ position: 'fixed', top: '25%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
                                                         <div style={{ marginBottom: '20px' }}>
                                                             <button type="button" onClick={handleZoomIn}>
                                                                 Zoom In
@@ -456,117 +453,155 @@ const Index = (props) => {
                                                             </button>
                                                         </div>
                                                         {zoomLevel > 24 && zoomLevel < 31 ? (
-                                                        <div style={{ marginBottom: '20px' }}>
-                                                            <div className="select-container">
-                                                                <div className="select-wrapper">
-                                                                    <Select
-                                                                        value={currentTag1}
-                                                                        onChange={(selectedOption) => setCurrentTag1(selectedOption?.value || '')}
-                                                                        options={tagFilteredUsers.map((element, index) => ({ value: element.name, label: element.name }))}
-                                                                        placeholder="Type here to select a name..."
-                                                                        styles={selectStyles} // Apply the custom styles
-                                                                    />
+                                                            <div style={{ marginBottom: '20px' }}>
+                                                                <div className="select-container">
+                                                                    <div className="select-wrapper">
+                                                                        <Select
+                                                                            value={currentTag1}
+                                                                            onChange={(selectedOption) => setCurrentTag1(selectedOption?.value || '')}
+                                                                            options={tagFilteredUsers.map((element, index) => ({ value: element.name, label: element.name }))}
+                                                                            placeholder="Type here to select a name..."
+                                                                            styles={selectStyles} // Apply the custom styles
+                                                                        />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div style={{ display: 'flex', alignItems: 'left', marginBottom: '20px' }}>
+                                                                    <select value={currentTag1} onChange={handleTagInput1} style={{ backgroundColor: '#1E385C', color: 'white', opacity: '1' }} disabled>
+                                                                        <option value=""></option>
+                                                                        {filteredUsers.length === 0 ? (
+                                                                            <option disabled>No matching names found</option>
+                                                                        ) : (
+                                                                            filteredUsers.map((element, index) => (
+                                                                                <option key={index} value={element.name}>
+                                                                                    {element.name}
+                                                                                </option>
+                                                                            ))
+                                                                        )}
+                                                                    </select>
+
+                                                                    <select value={getDivisions()} onChange={(event) => setCurrentTag2(event.target.value)} style={{ backgroundColor: '#1E385C', color: 'white', opacity: '1' }} disabled>
+                                                                        <option value=""  >Division / Teacher</option>
+                                                                        {tagFilteredUsers.map((element, index) => (
+                                                                            <option key={index} value={element.division} >
+                                                                                {element.division}
+                                                                            </option>
+                                                                        ))}
+                                                                    </select>
                                                                 </div>
                                                             </div>
-
-                                                            <div style={{ display: 'flex', alignItems: 'left', marginBottom: '20px' }}>
-                                                                <select value={currentTag1} onChange={handleTagInput1} style={{ backgroundColor: '#1E385C', color: 'white', opacity: '1' }} disabled>
-                                                                    <option value=""></option>
-                                                                    {filteredUsers.length === 0 ? (
-                                                                        <option disabled>No matching names found</option>
-                                                                    ) : (
-                                                                        filteredUsers.map((element, index) => (
-                                                                            <option key={index} value={element.name}>
-                                                                                {element.name}
-                                                                            </option>
-                                                                        ))
-                                                                    )}
-                                                                </select>
-
-                                                                <select value={getDivisions()} onChange={(event) => setCurrentTag2(event.target.value)} style={{ backgroundColor: '#1E385C', color: 'white', opacity: '1' }} disabled>
-                                                                    <option value=""  >Division / Teacher</option>
-                                                                    {tagFilteredUsers.map((element, index) => (
-                                                                        <option key={index} value={element.division} >
-                                                                            {element.division}
-                                                                        </option>
-                                                                    ))}
-                                                                </select>
-                                                            </div>
-                                                        </div>
                                                         ) : null}
-                                                        <div>
-                                                            {zoomLevel > 24 && zoomLevel < 31 ? (
+                                                        {zoomLevel > 24 && zoomLevel < 31 ? (
+                                                            <div>
                                                                 <button className="btn btn-warning" type="button" onClick={handleSaveAll}>
                                                                     Save All
-                                                                </button>) :
-                                                                (null)
-                                                            }
-                                                        </div>
-                                                        
+                                                                </button>
+                                                            </div>
+                                                        ) : (null)
+                                                        }
+
                                                     </div>
-                                                    <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                        <div
-                                                            className="frame"
-                                                            style={{
-                                                                maxWidth: '100%',
-                                                                maxHeight: 'calc(100vh - 300px)',
-                                                                transform: `scale(${zoomLevel})`,
-                                                                transformOrigin: 'top left',
-                                                            }}
-                                                            ref={containerRef}
-                                                        >
+                                                    {!zoomLevelBeyondTagging && (
+                                                        <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                                             <div
+                                                                className="frame"
                                                                 style={{
-                                                                    position: 'relative',
-                                                                    width: 'fit-content',
-                                                                    height: 'fit-content',
-                                                                    margin: '0 auto',
+                                                                    maxWidth: '100%',
+                                                                    maxHeight: 'calc(100vh - 300px)',
+                                                                    transform: `scale(${zoomLevel})`,
+                                                                    transformOrigin: 'top left',
                                                                 }}
+                                                                ref={containerRef}
                                                             >
-
-                                                                <img
-                                                                    ref={imageRef}
-                                                                    src="https://res.cloudinary.com/course4u/image/upload/v1691531557/ghss/photoshop-edited_9_zsq36x.jpg" class="responsive"
-                                                                    alt=""
+                                                                <div
                                                                     style={{
-                                                                        display: 'block',
-                                                                        maxWidth: '100%',
-                                                                        maxHeight: '100%',
+                                                                        position: 'relative',
+                                                                        width: 'fit-content',
+                                                                        height: 'fit-content',
+                                                                        margin: '0 auto',
                                                                     }}
-                                                                    onClick={handleImageClick}
-                                                                />
-                                                            {tags.map((tag, index) => {
-                                                                const { x, y, name, division } = tag;
-                                                                return (
-                                                                    <div
-                                                                        key={index}
-                                                                        style={{
-                                                                            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                                                                            padding: '5px',
-                                                                            borderRadius: '4px',
-                                                                            color: 'white',
-                                                                            cursor: 'pointer',
-                                                                            position: 'absolute',
-                                                                            left: `${x}px`,
-                                                                            top: `${y}px`,
-                                                                            transform: `scale(${1 / zoomLevel})`,
-                                                                            transformOrigin: 'top left',
-                                                                            opacity: hoveredTag === tag ? 1 : 0.5,
-                                                                        }}
-                                                                        onClick={() => handleTagClick(tag)}
-                                                                        onMouseEnter={() => handleTagHover(tag)}
-                                                                        onMouseLeave={handleTagLeave}
-                                                                        onTouchStart={() => handleTagHover(tag)}
-                                                                        onTouchEnd={handleTagLeave}
-                                                                    >
-                                                                        {`${name}, ${division}`}
-                                                                    </div>
-                                                                );
-                                                            })}
+                                                                >
 
+                                                                    <img
+                                                                        ref={imageRef}
+                                                                        src="https://res.cloudinary.com/course4u/image/upload/v1691531557/ghss/photoshop-edited_9_zsq36x.jpg" class="responsive"
+                                                                        alt=""
+                                                                        style={{
+                                                                            display: 'block',
+                                                                            maxWidth: '100%',
+                                                                            maxHeight: '100%',
+                                                                        }}
+                                                                        onClick={handleImageClick}
+                                                                    />
+                                                                    {tags.map((tag, index) => {
+                                                                        const { x, y, name, division } = tag;
+                                                                        return (
+                                                                            <div
+                                                                                key={index}
+                                                                                style={{
+                                                                                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                                                                                    padding: '5px',
+                                                                                    borderRadius: '4px',
+                                                                                    color: 'white',
+                                                                                    cursor: 'pointer',
+                                                                                    position: 'absolute',
+                                                                                    left: `${x}px`,
+                                                                                    top: `${y}px`,
+                                                                                    transform: `scale(${1 / zoomLevel})`,
+                                                                                    transformOrigin: 'top left',
+                                                                                    opacity: hoveredTag === tag ? 1 : 0.5,
+                                                                                }}
+                                                                                onClick={() => handleTagClick(tag)}
+                                                                                onMouseEnter={() => handleTagHover(tag)}
+                                                                                onMouseLeave={handleTagLeave}
+                                                                                onTouchStart={() => handleTagHover(tag)}
+                                                                                onTouchEnd={handleTagLeave}
+                                                                            >
+                                                                                {`${name}, ${division}`}
+                                                                            </div>
+                                                                        );
+                                                                    })}
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    )}
+                                                    {zoomLevelBeyondTagging && (
+                                                        <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                            <div
+                                                                className="frame"
+                                                                style={{
+                                                                    maxWidth: '100%',
+                                                                    maxHeight: 'calc(100vh - 300px)',
+                                                                    transform: `scale(${zoomLevel})`,
+                                                                    transformOrigin: 'top left',
+                                                                }}
+                                                                ref={containerRef}
+                                                            >
+                                                                <div
+                                                                    style={{
+                                                                        position: 'relative',
+                                                                        width: 'fit-content',
+                                                                        height: 'fit-content',
+                                                                        margin: '0 auto',
+                                                                    }}
+                                                                >
+
+                                                                    <img
+                                                                        ref={imageRef}
+                                                                        src="https://res.cloudinary.com/course4u/image/upload/v1691531557/ghss/photoshop-edited_9_zsq36x.jpg" class="responsive"
+                                                                        alt=""
+                                                                        style={{
+                                                                            display: 'block',
+                                                                            maxWidth: '100%',
+                                                                            maxHeight: '100%',
+                                                                        }}
+                                                                        onClick={handleImageClick}
+                                                                    />
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
@@ -578,7 +613,7 @@ const Index = (props) => {
                                             <div className="frame">
 
                                                 <div style={{ textAlign: 'center' }}>
-                                                    <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
+                                                    <div style={{ position: 'fixed', top: '25%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
                                                         <div style={{ marginBottom: '20px' }}>
                                                             <button type="button" onClick={handleZoomIn}>
                                                                 Zoom In
