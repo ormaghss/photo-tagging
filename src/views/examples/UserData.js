@@ -175,7 +175,7 @@ const UserData = () => {
     setBusy(true);
     try {
 
-      await axios.delete("https://photo-tagging-java.onrender.com/deletUsers/" + value.userId);
+      await axios.delete("https://spring-boot-402216.de.r.appspot.com/deletUsers/" + value.userId);
     } catch (error) {
       throw error;
     } finally {
@@ -188,7 +188,7 @@ const UserData = () => {
     setBusy(true);
     try {
 
-      const response = await axios.get("https://photo-tagging-java.onrender.com/taggedPhoto");
+      const response = await axios.get("https://spring-boot-402216.de.r.appspot.com/taggedPhoto");
       if (response.status === 200) {
         setTagging(response.data);
 
@@ -207,7 +207,7 @@ const UserData = () => {
   const fetchUserData = async () => {
     setBusy(true);
     try {
-      const response = await api.get('https://photo-tagging-java.onrender.com/AllUsers'); // Use the Axios instance instead of axios directly
+      const response = await api.get('https://spring-boot-402216.de.r.appspot.com/AllUsers'); // Use the Axios instance instead of axios directly
       if (response.status === 200) {
         setUserData(response.data);
         const sortedUsers = response.data
@@ -232,7 +232,7 @@ const UserData = () => {
     setBusy(true);
     setIsShowNewForm(false)
     try {
-      await axios.put("https://photo-tagging-java.onrender.com/users/" + editData.userId, editData);
+      await axios.put("https://spring-boot-402216.de.r.appspot.com/users/" + editData.userId, editData);
     } catch (error) {
       throw error;
     } finally {
@@ -246,7 +246,7 @@ const UserData = () => {
     setBusy(true);
     setIsShowNewForm(false)
     try {
-      await axios.post("https://photo-tagging-java.onrender.com/addSingleUser", newData);
+      await axios.post("https://spring-boot-402216.de.r.appspot.com/addSingleUser", newData);
     } catch (error) {
       throw error;
     } finally {
