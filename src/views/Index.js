@@ -246,7 +246,7 @@ const Index = (props) => {
         setBusy(true);
         try {
 
-            const response = await axios.get("http://localhost:8080/taggedPhoto");
+            const response = await axios.get("https://spring-boot-402216.de.r.appspot.com/taggedPhoto");
             if (response.status === 200) {
                 setTags(JSON.parse(JSON.stringify(response.data)));
                 setTaggedData(JSON.parse(JSON.stringify(response.data)))
@@ -283,7 +283,7 @@ const Index = (props) => {
             const headers = {
                 'Content-Type': 'application/json'
             }
-            let url = "http://localhost:8080/addTagging";
+            let url = "https://spring-boot-402216.de.r.appspot.com/addTagging";
             let data = {
                 "taggedUsers": {}
             }
