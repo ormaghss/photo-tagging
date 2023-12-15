@@ -145,8 +145,7 @@ const Index = (props) => {
 
 
     const imageRef = useRef(null);
-    const containerRef = useRef(null);
-    const floatingControlsRef = useRef(null);
+    const containerRef = useRef(null);  
 
     const handleImageClick = (event) => {
         const { offsetX, offsetY } = event.nativeEvent;
@@ -349,7 +348,8 @@ const Index = (props) => {
 
     useEffect(() => {
         const container = containerRef.current;
-
+        const imageUrl = 'https://orma.onrender.com/image';
+        imageRef.current.src = imageUrl;
         if (!isZooming) {
             fetchUserData();
         }
@@ -524,7 +524,7 @@ const Index = (props) => {
 
                                                                     <img
                                                                         ref={imageRef}
-                                                                        src="https://res.cloudinary.com/course4u/image/upload/v1691531557/ghss/photoshop-edited_9_zsq36x.jpg" class="responsive"
+                                                                       
                                                                         alt=""
                                                                         style={{
                                                                             display: 'block',
@@ -588,7 +588,7 @@ const Index = (props) => {
 
                                                                     <img
                                                                         ref={imageRef}
-                                                                        src="https://res.cloudinary.com/course4u/image/upload/v1691531557/ghss/photoshop-edited_9_zsq36x.jpg" class="responsive"
+                                                                        
                                                                         alt=""
                                                                         style={{
                                                                             display: 'block',
@@ -650,7 +650,7 @@ const Index = (props) => {
 
                                                                 <img
                                                                     ref={imageRef}
-                                                                    src="https://res.cloudinary.com/course4u/image/upload/v1691531557/ghss/photoshop-edited_9_zsq36x.jpg" class="responsive"
+                                                                    
                                                                     alt=""
                                                                     style={{
                                                                         display: 'block',
